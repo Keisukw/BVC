@@ -1,0 +1,69 @@
+.bg-hero{
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  background-color: black;
+  z-index: -100;
+}
+
+.bg-hero img{
+  height: 100vh;
+  opacity: 0.3;
+}
+
+.hero{
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px 50px;
+}
+
+.hero h1{
+  font-size: 50px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.hero p{
+  font-size: 20px;
+  color: var(--text);
+  font-weight: 400;
+  width: 50%;
+}
+
+.redes-sociais{
+  display: flex;
+  gap: 20px;
+}
+
+.pesquisar{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+.pesquisar input{
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background-color: transparent;
+  color: var(--text);
+  width: 60%;
+  outline: none;
+  font-size: 16px;
+  font-weight: 300;
+  text-indent: 20px;
+}
+
+.pesquisar img {
+  position: relative;
+  width: 25px;
+  height: 25px;
+  right: 5%;
+}
