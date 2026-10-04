@@ -1,10 +1,13 @@
 .menu{
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 10px 50px;
   position: fixed;
+  top: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.555);
+  background-color: rgba(0, 0, 0, 0.888);
+  z-index: 999;
 }
 
 .menu img{
@@ -15,16 +18,54 @@
 
 .menu ul{
   display: flex;
-  width: 100%;
+  width: 1348px;
   justify-content: flex-end;
+  gap: 20px;
 }
 
 .menu ul li{
   list-style: none;
-  margin-right: 20px;
 }
 
-.menu ul li a{
-  text-decoration: none;
-  color: var(--text);
+.menu ul li a {
+    position: relative;
+    display: inline-block;
+    color: var(--cor-branco);
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.menu ul li a.active {
+    color: var(--cor-rosa);
+}
+
+.menu ul li a.active::after {
+    width: 100%;
+}
+
+/* Linha embaixo do link */
+.menu ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background-color: var(--cor-rosa);
+    transition: width 0.3s ease;
+}
+
+/* Ao passar o mouse */
+.menu ul li a:hover {
+    color: var(--cor-rosa);
+    transform: translateY(-2px);
+}
+
+.menu ul li a:hover::after {
+    width: 100%;
+}
+
+/* Ao clicar */
+.menu ul li a:active {
+    transform: translateY(0) scale(0.95);
 }

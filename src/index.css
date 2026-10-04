@@ -1,19 +1,31 @@
 :root {
-  --text: #fff;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(161, 161, 161, 0.301) 3px 10px 15px 0, rgba(221, 221, 221, 0.05) 2px 4px 6px 0;
+    --cor-background: #E6E6E6;
+    --cor-background-branco: #FBFBFB;
+    --cor-branco: #fff;
+    --cor-amarelo: #FDEE09;
+    --cor-azul: #02CADB;
+    --cor-rosa: #FF0095;
+    --cor-black: rgba(0, 0, 0);
+    --transparent: transparent;
+    --cor-font: #42371A;
+    --cor-font-second: #6D5F3D;
+    --cor-amarelo-light: rgba(253, 238, 9, 0.77);
+    --cor-azul-light: rgba(2, 202, 219, 0.77);
+    --cor-rosa-light: rgba(219, 2, 129, 0.77);
+    --cor-pontos-enable: #02cadb;
+    --cor-pontos-disable: #D9D9D9;
+    --cor-cinza: #888;
+}
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color: var(--text);
-  background: var(--bg);
+::selection {
+    background-color: var(--cor-rosa); /* Define a cor de fundo ao selecionar texto */
+    color: var(--cor-branco);
+}
 
+::-webkit-scrollbar {
+    width: 6px; /* Largura da barra de rolagem */
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--cor-cinza); /* Cor do controle deslizante */
+    border-radius: 20px;
 }

@@ -1,0 +1,81 @@
+.card-produto {
+    background-color: var(--cor-branco);
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 3px 8px;
+    border-radius: 30px;
+    width: 320px;
+    height: 471px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 10px 20px;
+}
+
+.card-produto img{
+    width: 250px;
+    height: 200px;
+    object-fit: contain;
+    margin: 0 0 90px -10px;
+}
+
+.card-produto .texto{
+    margin-top: -70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.card-produto .nome {
+    font-size: 20px;
+    color: var(--cor-font);
+}
+
+.card-produto .a-partir {
+    color: var(--cor-font-second);
+    font-size: 18px;
+    font-weight: 300;
+    margin-top: -5px;
+}
+
+.card-produto .preco {
+    color: var(--cor-rosa);
+    font-size: 40px;
+    font-weight: 500;
+    margin-left: 20px;
+}
+
+.card-produto .texto span{
+    font-size: 16px;
+    color: var(--cor-font-second);
+    margin-left: 2px;
+    font-weight: 300;
+}
+
+.btn button{
+    background-color: var(--cor-amarelo-light);
+    border: none;
+    width: 200px;
+    height: 50px;
+    border-radius: 15px;
+    color: var(--cor-font);
+    font-size: 20px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 4px;
+    cursor: pointer;
+}
+
+.btn button:hover{
+    opacity: 0.8;
+}
+
+.card-produto a{
+    color: var(--cor-font-second);
+    text-decoration: none;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.card-produto a:hover {
+    text-decoration: underline;
+}
