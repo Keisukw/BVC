@@ -1,0 +1,61 @@
+/* Tokens: usam as variáveis do projeto quando existirem (troque --bvc-* pelos seus nomes). */
+.contact {
+  --c-ink: var(--bvc-ink, #1c1c1c);
+  position: relative;
+  padding: clamp(48px, 7vw, 96px) 0;
+  color: #fff;
+  background-color: var(--c-ink);
+  background-image:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.25)),
+    var(--contact-bg, none);
+  background-size: cover;
+  background-position: center;
+}
+.contact__inner {
+  width: min(1200px, 100% - 40px);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(32px, 6vw, 96px);
+  align-items: start;
+}
+
+.contact__title { margin: 0 0 24px; font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.05; }
+.contact__text { margin: 0 0 20px; max-width: 56ch; line-height: 1.6; }
+
+.contact__address {
+  display: grid;
+  gap: 2px;
+  margin-top: 32px;
+  font-style: normal;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+.contact__address a { color: inherit; }
+
+/* Formulário */
+.contact__form { display: grid; gap: 8px; }
+.contact__label { margin-top: 8px; font-size: 1.4rem; font-weight: 500; }
+.contact__field {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font: inherit;
+}
+.contact__field--area { min-height: 140px; resize: vertical; }
+.contact__field:focus-visible { outline: 3px solid var(--bvc-cyan, #00c6f0); outline-offset: 2px; }
+.contact__actions { display: flex; gap: 12px; margin-top: 16px; justify-content: center;}
+
+@media (max-width: 860px) {
+  .contact__inner { grid-template-columns: 1fr; }
+  .contact__text { max-width: none; }
+}
+@media (max-width: 480px) {
+  .contact__actions { flex-direction: column; align-items: stretch; }
+  .contact__actions .btn { justify-content: center;}
+}

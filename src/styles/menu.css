@@ -69,3 +69,17 @@
 .menu ul li a:active {
     transform: translateY(0) scale(0.95);
 }
+
+@media (max-width: 1024px) {
+
+}
+
+/* Mobile: empilhado, sem carrossel */
+@media (max-width: 640px) {
+    .menu{
+        padding: 10px 20px;
+    }
+    .menu ul li{
+        display: none;
+    }
+}

@@ -1,0 +1,60 @@
+.footer {
+  --f-yellow: var(--bvc-yellow, #fde72c);
+  --f-cyan: var(--bvc-cyan, #00c6f0);
+  --f-magenta: var(--bvc-magenta, #f0148c);
+  --f-ink: var(--bvc-ink, #1c1c1c);
+  padding: clamp(40px, 5vw, 64px) 0 24px;
+  background: #fff;
+  color: var(--f-ink);
+}
+.footer__inner { width: min(1200px, 100% - 40px); margin-inline: auto; }
+
+/* Mesma grade nas duas linhas, para alinhar "Formas de pagamento" com os links */
+.footer__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 32px 48px;
+}
+
+.footer__logo { margin: 0 0 16px; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 800; line-height: 1; }
+.footer__logo-bvc { color: var(--f-yellow); }
+.footer__logo-copy { color: var(--f-cyan); }
+.footer__logo-house { color: var(--f-magenta); }
+
+.footer__socials { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+.footer__social { display: inline-grid; place-items: center; width: 22px; height: 22px; }
+.footer__social img { width: 100%; height: 100%; object-fit: contain; }
+.footer__social-fallback {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.footer__copy { margin: 0; font-size: 0.85rem; }
+
+.footer__nav { display: grid; grid-template-columns: repeat(4, auto); justify-content: start; gap: 16px 40px; }
+.footer__nav ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; align-content: start; }
+.footer__nav li { font-size: 0.8rem; }
+.footer__nav a { color: inherit; text-decoration: none; }
+.footer__nav a:hover { color: var(--f-magenta); }
+.footer__nav a:focus-visible { outline: 2px solid var(--f-magenta); outline-offset: 2px; }
+
+.footer__divider { margin: 32px 0; border: 0; border-top: 1px solid #cfcfcf; }
+
+.footer__heading { margin: 0 0 8px; font-size: 0.85rem; font-weight: 600; }
+.footer__small { margin: 0; font-size: 0.78rem; line-height: 1.6; }
+.footer__payments { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+.footer__payments li { padding: 4px 10px; border: 1px solid #d8d8d8; border-radius: 6px; font-size: 0.75rem; }
+.footer__payments img { display: block; height: 18px; width: auto; }
+
+.footer__address { display: block; margin-top: 32px; font-style: normal; }
+.footer__legal { margin: 32px 0 0; text-align: center; font-size: 0.72rem; }
+
+@media (max-width: 860px) {
+  .footer__row { grid-template-columns: 1fr; }
+  .footer__nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

@@ -1,4 +1,5 @@
 import "../styles/cardProduto.css";
+import Button from "./button";
 
 function CardProduto({ imagem, nome, preco, qtd }) {
     return (
@@ -11,9 +12,9 @@ function CardProduto({ imagem, nome, preco, qtd }) {
                     {preco}<span>R$/{qtd}</span>
                 </p>
             </div>
-            <div className="btn">
-                <button>Comprar</button>
-            </div>
+            <Button 
+                texto="Comprar"
+            />
             <a href="#">Ver detalhes</a>
         </div>
     )

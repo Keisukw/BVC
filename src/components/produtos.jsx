@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "../styles/produto.css";
 import "../App.css";
@@ -7,6 +7,7 @@ import CardProduto from "./cardProduto.jsx";
 
 function Produtos() {
     const [paginaAtual, setPaginaAtual] = useState(0);
+    const [touchStart, setTouchStart] = useState(0);
 
     const produtos = [
         {
@@ -65,11 +66,30 @@ function Produtos() {
         }
     ];
 
-    const cardsPorPagina = 3;
+    const [cardsPorPagina, setCardsPorPagina] = useState(
+        window.innerWidth <= 768 ? 1 : 3
+    );
+
+    useEffect(() => {
+        function atualizarCardsPorPagina() {
+            setCardsPorPagina(window.innerWidth <= 768 ? 1 : 3);
+        }
+
+        window.addEventListener("resize", atualizarCardsPorPagina);
+
+        return () => {
+            window.removeEventListener("resize", atualizarCardsPorPagina);
+        };
+    }, []);
 
     const totalPaginas = Math.ceil(produtos.length / cardsPorPagina);
 
     const larguraCard = 360;
+
+    const deslocamento =
+        window.innerWidth <= 640
+            ? paginaAtual * window.innerWidth
+            : paginaAtual * larguraCard * 3;
 
     function proximaPagina() {
         setPaginaAtual((paginaAtual + 1) % totalPaginas);
@@ -81,6 +101,28 @@ function Produtos() {
         );
     }
 
+    function iniciarToque(event) {
+        setTouchStart(event.touches[0].clientX);
+    }
+
+    function finalizarToque(event) {
+        const touchEnd = event.changedTouches[0].clientX;
+        const distancia = touchStart - touchEnd;
+
+        // Ignora movimentos muito pequenos
+        if (Math.abs(distancia) < 50) {
+            return;
+        }
+
+        if (distancia > 0) {
+            // Arrastou para a esquerda
+            proximaPagina();
+        } else {
+            // Arrastou para a direita
+            paginaAnterior();
+        }
+    }
+
     return (
         <div className="section-produtos">
             <div className="produtos section" id="produtos">
@@ -89,7 +131,10 @@ function Produtos() {
                     <h2>Top Picks da Semana</h2>
                 </div>
 
-                <div className="container">
+                <div className="container"
+                    onTouchStart={iniciarToque}
+                    onTouchEnd={finalizarToque}
+                >
 
                     <button
                         className="before btn-arrow"
@@ -101,7 +146,7 @@ function Produtos() {
                     <div
                         className="container-produtos"
                         style={{
-                            transform: `translateX(-${paginaAtual * larguraCard * cardsPorPagina}px)`
+                            transform: `translateX(-${deslocamento}px)`
                         }}
                     >
                         {produtos.map((produto, index) => (
