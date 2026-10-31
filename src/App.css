@@ -10,13 +10,10 @@ html {
     scroll-behavior: smooth;
 }
 
-.section{
-    padding: 20px 50px;
-}
-
 .title {
-    padding: 50px 0;
+    padding: 50px;
     width: 100%;
+    max-width: 1348px;
 }
 
 .title h2 {
@@ -26,17 +23,10 @@ html {
     text-align: left;
 }
 
-@media (max-width: 1024px) {
-
-}
-
 /* Mobile: empilhado, sem carrossel */
 @media (max-width: 640px) {
     .title h2 {
         font-size: 36px;
         text-align: center;
-    }
-    .section{
-        padding: 20px 20px;
     }
 }

@@ -1,24 +1,32 @@
+/*
+  ATENÇÃO: este arquivo contém apenas o CSS dos cards que você me enviou.
+  Se o seu cardProduto.css tiver outras regras, altere somente
+  .card-produto e o bloco @media (max-width: 640px).
+*/
+
 .card-produto {
     background-color: var(--cor-branco);
     box-shadow: rgba(0, 0, 0, 0.5) 0px 3px 8px;
     border-radius: 30px;
-    width: 320px;
+    width: 100%;
+    max-width: 320px;
+    box-sizing: border-box;
     height: 471px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin: 10px 20px;
+    margin: 10px 0;
 }
 
-.card-produto img{
+.card-produto img {
     width: 250px;
     height: 200px;
     object-fit: contain;
     margin: 0 0 90px -10px;
 }
 
-.card-produto .texto{
+.card-produto .texto {
     margin-top: -70px;
     display: flex;
     align-items: center;
@@ -45,14 +53,14 @@
     margin-left: 20px;
 }
 
-.card-produto .texto span{
+.card-produto .texto span {
     font-size: 16px;
     color: var(--cor-font-second);
     margin-left: 2px;
     font-weight: 300;
 }
 
-.card-produto a{
+.card-produto a {
     color: var(--cor-font-second);
     text-decoration: none;
     margin-top: 10px;
@@ -64,19 +72,14 @@
     text-decoration: underline;
 }
 
-@media (max-width: 1024px) {
-
-}
-
-/* Mobile: empilhado, sem carrossel */
 @media (max-width: 640px) {
-    .card-produto{
-        width: 100%;
+    .card-produto {
+        max-width: none;
         height: 400px;
         margin: 0;
     }
 
-    .card-produto img{
+    .card-produto img {
         width: 200px;
         height: 150px;
         margin: 0 0 70px -10px;

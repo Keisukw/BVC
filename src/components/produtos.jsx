@@ -1,13 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import "../styles/produto.css";
 import "../App.css";
 
 import CardProduto from "./cardProduto.jsx";
 
+// Mesmos breakpoints do CSS (max-width: 640px) e (max-width: 1024px)
+function calcularCardsPorPagina() {
+    if (window.innerWidth <= 640) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
+}
+
 function Produtos() {
     const [paginaAtual, setPaginaAtual] = useState(0);
     const [touchStart, setTouchStart] = useState(0);
+    const [cardsPorPagina, setCardsPorPagina] = useState(calcularCardsPorPagina);
+
+    const cardsPorPaginaRef = useRef(cardsPorPagina);
 
     const produtos = [
         {
@@ -66,13 +76,17 @@ function Produtos() {
         }
     ];
 
-    const [cardsPorPagina, setCardsPorPagina] = useState(
-        window.innerWidth <= 768 ? 1 : 3
-    );
-
     useEffect(() => {
         function atualizarCardsPorPagina() {
-            setCardsPorPagina(window.innerWidth <= 768 ? 1 : 3);
+            const quantidade = calcularCardsPorPagina();
+
+            if (quantidade === cardsPorPaginaRef.current) {
+                return;
+            }
+
+            cardsPorPaginaRef.current = quantidade;
+            setCardsPorPagina(quantidade);
+            setPaginaAtual(0);
         }
 
         window.addEventListener("resize", atualizarCardsPorPagina);
@@ -84,21 +98,20 @@ function Produtos() {
 
     const totalPaginas = Math.ceil(produtos.length / cardsPorPagina);
 
-    const larguraCard = 360;
+    // Garante que a página nunca fique fora do intervalo durante uma troca de breakpoint
+    const pagina = Math.min(paginaAtual, totalPaginas - 1);
 
-    const deslocamento =
-        window.innerWidth <= 640
-            ? paginaAtual * window.innerWidth
-            : paginaAtual * larguraCard * 3;
+    // O trilho (.container-produtos) mede (total / cardsPorPagina) vezes a área visível,
+    // então uma página equivale a (cardsPorPagina / total) da largura do próprio trilho.
+    // Em porcentagem, o deslocamento acompanha a largura real, em qualquer resolução.
+    const deslocamento = (pagina * cardsPorPagina * 100) / produtos.length;
 
     function proximaPagina() {
-        setPaginaAtual((paginaAtual + 1) % totalPaginas);
+        setPaginaAtual((atual) => (atual + 1) % totalPaginas);
     }
 
     function paginaAnterior() {
-        setPaginaAtual(
-            (paginaAtual - 1 + totalPaginas) % totalPaginas
-        );
+        setPaginaAtual((atual) => (atual - 1 + totalPaginas) % totalPaginas);
     }
 
     function iniciarToque(event) {
@@ -109,64 +122,69 @@ function Produtos() {
         const touchEnd = event.changedTouches[0].clientX;
         const distancia = touchStart - touchEnd;
 
-        // Ignora movimentos muito pequenos
         if (Math.abs(distancia) < 50) {
             return;
         }
 
         if (distancia > 0) {
-            // Arrastou para a esquerda
             proximaPagina();
         } else {
-            // Arrastou para a direita
             paginaAnterior();
         }
     }
 
     return (
         <div className="section-produtos">
-            <div className="produtos section" id="produtos">
+            <div className="produtos" id="produtos">
 
                 <div className="title">
                     <h2>Top Picks da Semana</h2>
                 </div>
 
-                <div className="container"
+                <div
+                    className="container"
+                    style={{
+                        "--cards": cardsPorPagina,
+                        "--total": produtos.length
+                    }}
                     onTouchStart={iniciarToque}
                     onTouchEnd={finalizarToque}
                 >
-
                     <button
                         className="before btn-arrow"
                         onClick={paginaAnterior}
+                        aria-label="Página anterior"
                     >
-                        <img src="/arrow-blue.png" alt="Anterior" />
+                        <img src="/arrow-blue.png" alt="" />
                     </button>
 
-                    <div
-                        className="container-produtos"
-                        style={{
-                            transform: `translateX(-${deslocamento}px)`
-                        }}
-                    >
-                        {produtos.map((produto, index) => (
-                            <CardProduto
-                                key={index}
-                                imagem={produto.imagem}
-                                nome={produto.nome}
-                                preco={produto.preco}
-                                qtd={produto.qtd}
-                            />
-                        ))}
+                    <div className="area-visivel">
+                        <div
+                            className="container-produtos"
+                            style={{
+                                transform: `translateX(-${deslocamento}%)`
+                            }}
+                        >
+                            {produtos.map((produto, index) => (
+                                <div className="slide-produto" key={index}>
+                                    <CardProduto
+                                        imagem={produto.imagem}
+                                        nome={produto.nome}
+                                        preco={produto.preco}
+                                        qtd={produto.qtd}
+                                    />
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
                     <button
                         className="next btn-arrow"
                         onClick={proximaPagina}
+                        aria-label="Próxima página"
                     >
-                        <img src="/arrow-blue.png" alt="Próximo" />
+                        <img src="/arrow-blue.png" alt="" />
                     </button>
-
                 </div>
 
                 <div className="pontos-indicadores">
@@ -174,10 +192,10 @@ function Produtos() {
                         <div
                             key={index}
                             className={`elipse ${
-                                paginaAtual === index ? "enable" : "disable"
+                                pagina === index ? "enable" : "disable"
                             }`}
                             onClick={() => setPaginaAtual(index)}
-                        ></div>
+                        />
                     ))}
                 </div>
 

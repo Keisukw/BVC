@@ -10,7 +10,7 @@ function Header() {
 
             <div className="section-hero">
 
-                <div className='hero section'>
+                <div className='hero section title'>
 
                     <h1>Bem-vindo à 
                         <span className="bvc"> BVC</span>

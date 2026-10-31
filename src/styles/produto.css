@@ -8,44 +8,75 @@
 
 .produtos{
     position: relative;
-    width: 1348px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.produtos .btn-arrow{
-    background-color: var(--cor-background-transparent);
+.produtos .btn-arrow {
     position: absolute;
-    border: none;
-    cursor: pointer;
     padding: 0;
+    margin: 0;
+    z-index: 999;
+    border: none;
+    background-color: var(--cor-background-transparent);
+    cursor: pointer;
 }
 
-.produtos .before{
+.produtos .container .before {
     left: 0;
 }
 
-.produtos .next{
+.produtos .next {
     right: 0;
     transform: rotate(180deg);
 }
 
-.produtos .container{
-    width: 86%;
+/* --cards e --total são definidas pelo Produtos.jsx */
+.produtos .container {
+    /* Espaço lateral reservado para os botões (ajuste conforme o tamanho da seta) */
+    --reserva-botoes: 64px;
+
+    position: relative;
+    width: 100%;
+    max-width: 1348px;
     display: flex;
-    overflow-x: hidden;
     align-items: center;
+    overflow: hidden;
     touch-action: pan-y;
+    padding: 0 var(--reserva-botoes);
+    box-sizing: border-box;
+    min-width: 0;
 }
 
-.produtos .container .container-produtos{
-    background-color: var(--cor-branco);
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+/* Janela por onde os cards aparecem (fica entre os botões, sem cobrir nenhum card) */
+.produtos .container .area-visivel {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: calc(var(--cards) * 360px); /* 360px = card de 320px + 20px de respiro de cada lado */
+    margin: 0 auto;
+    overflow: hidden;
+}
 
+/* Trilho: largura = (total de cards / cards por página) x área visível */
+.produtos .container .container-produtos {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: calc(100% * var(--total) / var(--cards));
+    background-color: var(--cor-branco);
+    margin-bottom: 10px;
     transition: transform 0.5s ease;
+}
+
+/* Cada slide ocupa exatamente 1/cards da área visível */
+.produtos .container .slide-produto {
+    flex: 0 0 calc(100% / var(--total));
+    display: flex;
+    justify-content: center;
+    padding: 0 4px;
+    box-sizing: border-box;
 }
 
 .produtos .pontos-indicadores {
@@ -69,39 +100,27 @@
 }
 
 @media (max-width: 1024px) {
-
+    .produtos .btn-arrow {
+        display: none;
+    }
 }
 
-/* Mobile: empilhado, sem carrossel */
-@media (max-width: 640px) {
-    .produtos {
-        width: 100%;
-    }
 
-    .section{
-        padding: 0;
+@media (max-width: 640px) {
+    .produtos .container {
+        --reserva-botoes: 0px;
     }
 
     .produtos .btn-arrow {
         display: none;
     }
 
-    .produtos .container {
-        width: 100%;
-        touch-action: pan-y;
-        padding: 0;
-        margin: 0;
+    .produtos .container .area-visivel {
+        max-width: none;
     }
 
-    .produtos .container .container-produtos {
+    /* Margem de 20px de cada lado do card */
+    .produtos .container .slide-produto {
         padding: 0 20px;
-        width: 100vw;
-        justify-content: flex-start;
-        gap: 40px;
-    }
-
-    .card-produto {
-        flex-shrink: 0;
-        width: calc(100vw - 40px);
     }
 }
